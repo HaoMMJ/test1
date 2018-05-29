@@ -6,6 +6,7 @@ class ConsumerJob < ApplicationJob
     if seed.present?
       seed.is_consumed = true
       seed.save
+      Fruit.create(seed_id: seed.id, name: "f-#{rand}")
     end
   end
 end
