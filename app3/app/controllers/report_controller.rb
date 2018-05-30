@@ -3,23 +3,19 @@ class ReportController < ApplicationController
 
   def report1
     url = URI.parse("#{ENV['APP1_URL']}/report")
-    req = Net::HTTP::Get.new(url.to_s)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.request(req)
-    }
-
-    @items = JSON.parse res.body
+    req = Net::HTTP::Get.new(url.request_uri)
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = (url.scheme == "https")
+    @items = JSON.parse http.request(req).body
     render :template => 'report/recent_items'
   end
 
   def report2
     url = URI.parse("#{ENV['APP2_URL']}/report")
-    req = Net::HTTP::Get.new(url.to_s)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.request(req)
-    }
-
-    @items = JSON.parse res.body
+    req = Net::HTTP::Get.new(url.request_uri)
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = (url.scheme == "https")
+    @items = JSON.parse http.request(req).body
     render :template => 'report/recent_items'
   end
 end
