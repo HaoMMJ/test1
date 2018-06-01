@@ -11,7 +11,13 @@ default: &default
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
 
-development:
+development_one:
+  <<: *default
+  database: test_1
+  username: hao
+  password: <%= ENV['TEST_1_DATABASE_PASSWORD'] %>
+
+development_two:
   <<: *default
   database: test_2
   username: hao
@@ -24,8 +30,18 @@ test:
   <<: *default
   database: test_2
 
-production:
+production_one:
   <<: *default
-  database: test_2
-  username: hao
-  password: <%= ENV['TEST_1_DATABASE_PASSWORD'] %>
+  host: ec2-107-21-255-2.compute-1.amazonaws.com
+  port: 5432
+  database: d9hi7ovm9477cm
+  username: <%= ENV['APP_1_DATABASE_USERNAME'] %>
+  password: <%= ENV['APP_1_DATABASE_PASSWORD'] %>
+
+production_two:
+  <<: *default
+  host: ec2-107-21-255-2.compute-1.amazonaws.com
+  port: 5432
+  database: ddghpit8b475j0
+  username: <%= ENV['APP_2_DATABASE_USERNAME'] %>
+  password: <%= ENV['APP_2_DATABASE_PASSWORD'] %>
