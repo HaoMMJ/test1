@@ -12,7 +12,7 @@ class ConsumerJob < ApplicationJob
       app_one_seed = AppOne::Seed.create(label: seed.label, group: 2) if app_one_seed.nil?
       app_one_seed.is_consumed = true
       app_one_seed.save
-      AppOne::Fruit.create(seed_id: app_one_seed.id, name: fruit_label)
+      AppOne::Fruit.find_or_create_by(seed_id: app_one_seed.id, name: fruit_label)
     end
   end
 end
